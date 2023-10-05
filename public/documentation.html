@@ -10,5 +10,102 @@
         movies, directors, and genres. Users will be able to sign up, update their
         personal information, and create a list of their favorite movies.
         </p>
-    </body>
+    
+    
+    <table>
+        <thead>
+            <tr>
+                <td>Business Logic</td>
+                <td>URL</td>
+                <td>HTTP Method</td>
+                <td>Path Variables</td>
+                <td>Request body data format in JSON</td>
+                <td>Response body data format in JSON</td>
+            </tr>
+        </thead>
+
+                 
+        
+    <tbody>
+                
+                    <td>Allow new users to register</td>
+                    <td>/users</td>
+                    <td>POST / CREATE</td>
+                    <td>None</td>
+                    <td>
+                        {
+                            "Username": "JohnMark",
+                            "Password": "abcd1234",
+                            "Email": "johnmark@example.com"
+                        }
+                    </td>
+                        <tr>
+                            <td>Get a list of ALL movies</td>
+                            <td>/movies</td>
+                            <td>GET</td>
+                            <td>none</td>
+                            <td>A JSON object holding an array with all movies.</td>
+                        </tr>
+                        <tr>
+                            <td>Get data about a single movie by title</td>
+                            <td>/movies/:Title</td>
+                            <td>GET</td>
+                            <td>None</td>
+                            <td>A JSON object holding data about a single movie, containing description, genre, director, image URL, and
+                                whether it’s featured or not property. Example:
+                                <code>
+                                {
+                                    "Title": "The Machine",
+                                    "Genre": {
+                                        "Name": "Action Comedy",
+                                        "Description": "Is a genre of action comedy."
+                                    },
+                                    "Director": {
+                                        "Name": "Peter Atencio",
+                                        "Age": 40 
+                                    },
+                                }
+                            </code>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Get data about a genre by genre's name</td>
+                            <td>/movies/genre/:genreName</td>
+                            <td>GET</td>
+                            <td>none</td>
+                            <td>A JSON object holding data about a genre containing name and description properties. Example:
+                                <code>
+                                    "Genre": {
+                                        "Name": "Action, Comedy",
+                                        "Description": "Is a genre of action comedy."
+                                    }
+                            </code>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Get data about a director by director's name</td>
+                            <td>/movies/directors/:directorName</td>
+                            <td>GET</td>
+                            <td>none</td>
+                            <td>A JSON object holding data about a director. Example:
+                                <code>
+                                {
+                                    "Name": " "Anthony Stacchi""
+                                    "Age": "51"
+                                }
+                            </code>
+                            </td>
+        
+                    </tr>
+                    <tr>
+                        <td>Delete user registration</td>
+                        <td>/users/:Username</td>
+                        <td>DELETE</td>
+                        <td>None</td>
+                        <td>A text message indicating whether a user was successfully removed.</td>
+                    </tr>
+                </tbody>
+            </table>
+                                              
+ </body>
 </html>

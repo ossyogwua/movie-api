@@ -1,24 +1,15 @@
-const express = require('express'),
-  morgan = require('morgan');
-  const fs = require('fs');
-  const path = require('path');
+const express = require('express');
+const morgan = require('morgan');
+const fs = require('fs');
   const bodyParser = require('bodyparser');
   const uuid = require('uuid');
 
-  const { check, validationResult } = require('express-validator');
+  const app = express();
+  
+  app.use(bodyParser.json())
 
-  const Genres = Models.Genre;
-  const Directors = Models.Director;
-  const Movies = Models.Movie;
-  const Users = Models.User;
-  
-  
-  app.use(bodyParser.json());
-  app.use(bodyParser.urlencoded({ extended: true }));
-  
-const app = express();
 
-const topTenMovies = [
+let topTenMovies = [
   {
     title: "Titanic",
     director: {
@@ -121,53 +112,33 @@ const topTenMovies = [
 
 
 
-
-
 ]
 
-app.use(morgan('common'));
+// Gets the list of all movies
 
 app.get('/movies', (req, res) => {
   res.json(topTenMovies);
 });
 
-app.get('/', (req, res) => {
-  res.send('Welcome to Myflix.');
-});
-
-app.listen(8080, () => {
-  console.log('Your app is listening on port 8080.');
-});
-app.use('/documentation.html', express.static('public'));
-
-app.use((err, req, res, next) => {
-    console.error(err.stack);
-    res.status(500).send('Something broke!');
-  });
-
-  // Return data about a single movie by title 
+// Return data about a single movie by title 
 app.get('/movies/:Title', { session: false }), (req, res) => {
   Movies.findOne({Title: req.params.Title})
     .then((movie) => {
       res.status(200).json(movie);
     })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send('Error: ' + err);
-    });
+  
 };
 
-// Return data about a genre by name
+
+// Gets data about a genre by name
 app.get('/movies/genre/:genreName', { session: false }), (req, res) => {
   Movies.findOne({'Genre.Name':req.params.genreName})
     .then((movie) => {
       res.status(200).json(movie.Genre);
     })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send('Error: ' + err);
-    });
+
 };
+
 
 //  Return data about a director (age and death year) by name
 app.get('/movies/directors/:directorName', { session: false }), (req, res) => {
@@ -175,73 +146,59 @@ app.get('/movies/directors/:directorName', { session: false }), (req, res) => {
     .then((movie) => {
       res.status(200).json(movie.Director);
     })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send('Error: ' + err);
-    });
+
 };
 
+// Adds data for a new users
+app.post('/users', (req, res) => {
+  let users = req.body;
 
-  {
-    username: String, (required)
-    password: String, (required)
-    email: String, (required)
-    birth_date: Date
-}
-app.post('/users',
-    [
-        // Validation here for request
-        check('Username', 'Username is required.')
-            .isLength({ min: 5 }),
-        check('Username', 'Username contains non alphanumeric characters - not allowed.')
-            .isAlphanumeric(),
-        check('Password', 'Password is required.')
-            .isLength({ min: 8 }),
-        check('Email', 'Email is required.')
-            .not().isEmpty(),
-        check('Email', 'Email does not appear to be valid.')
-            .isEmail()
-    ],
-    async (req, res) => {
-        // validation object for errors
-        let errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            return res.status(422)
-                .json({ errors: errors.array() });
-        }
+  if (!users.name) {
+    const message = 'Missing name in request body';
+    res.status(400).send(message);
+  } else {
+    newUser.id = uuid.v4();
+    users.push(newUser);
+    res.status(201).send(newUser);
+  }
+});
 
-        let hashedPassword = Users.hashPassword(req.body.Password);
-        await Users.findOne({ Username: req.body.Username }) // Search to see if a user with the requested username already exists
-            .then((user) => {
-                if (user) { // If the user is found, send a response that it already exists
-                    return res.status(400)
-                        .send(req.body.Username + ' already exists');
-                } else { // If it does not exist, create a user with the given username
-                    Users
-                        .create({
-                            Username: req.body.Username,
-                            Password: hashedPassword,
-                            Email: req.body.Email,
-                            Birth_Date: req.body.Birth_Date
-                        })
-                        .then((user) => {
-                            res.status(201)
-                                .json(user)
-                        })
-                        .catch((error) => {
-                            console.error(error);
-                            res.status(500)
-                                .send('Error: ' + error);
-                        });
-                }
-            })
-            .catch((error) => {
-                console.error(error);
-                res.status(500)
-                    .send('Error: ' + error);
-            });
-    }
-);
-app.listen(8080);
-console.log('My test server is running on Port 8080.');
+// Allow users to add a movie to their list of favorites.
+app.post('/favoriteMovies', (req, res) => {
+  let favoriteMovies = req.body;
 
+  if (!favoriteMovies.name) {
+    const message = 'Missing name in request body';
+    res.status(400).send(message);
+  } else {
+    favoriteMovies.id = uuid.v4();
+    Movies.push(favoriteMovies);
+    res.status(201).send(favoriteMovies);
+  }
+});
+
+// Deletes an existing user's account.
+app.delete('/users/:account', (req, res) => {
+  let user = user.find((user) => { return user.account === req.params.account });
+
+  if (user) {
+    users = users.filter((obj) => { return obj.account !== req.params.account });
+    res.status(201).send('users ' + req.params.account + ' was deleted.');
+  }
+});
+
+// Update the user's account
+app.put('/users/:name/:password/:email', (req, res) => {
+  let user = users.find((user) => { return user.name === req.params.name });
+
+  if (user) {
+    user.password[req.params.password] = parseInt(req.params.email);
+    res.status(201).send('user ' + req.params.name + ' was assigned a dateOfBirth of ' + req.params.dateOfBirth + ' in ' + req.params.password);
+  } else {
+    res.status(404).send('User with the name ' + req.params.name + ' was not found.');
+  }
+});
+
+app.listen(8080, () => {
+  console.log('Your app is listening on port 8080');
+});

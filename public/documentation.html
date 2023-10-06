@@ -13,16 +13,7 @@
     
     
     <table>
-        <thead>
-            <tr>
-                <td>Business Logic</td>
-                <td>URL</td>
-                <td>HTTP Method</td>
-                <td>Path Variables</td>
-                <td>Request body data format in JSON</td>
-                <td>Response body data format in JSON</td>
-            </tr>
-        </thead>
+    
 
                  
         
@@ -32,13 +23,27 @@
                     <td>/users</td>
                     <td>POST / CREATE</td>
                     <td>None</td>
-                    <td>
-                        {
-                            "Username": "JohnMark",
-                            "Password": "abcd1234",
-                            "Email": "johnmark@example.com"
-                        }
+                    <td> 
+
                     </td>
+
+                        <tr>
+                            <td>Add a movie to user favorite list</td>
+                            <td>/users/:Username/movies/:movieID</td>
+                            <td>Post</td>
+                            <td>None</td>
+                            <td>A JSON object holding all user info with all key/values pair updated:
+                                
+                            </td>
+
+                            </tr>
+
+                            
+
+
+                            
+                        
+                   
                         <tr>
                             <td>Get a list of ALL movies</td>
                             <td>/movies</td>
@@ -83,29 +88,24 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>Get data about a director by director's name</td>
-                            <td>/movies/directors/:directorName</td>
-                            <td>GET</td>
+                            <td>Upate user account</td>
+                            <td>/users/:username</td>
+                            <td>Put</td>
                             <td>none</td>
-                            <td>A JSON object holding data about a director. Example:
-                                <code>
-                                {
-                                    "Name": " "Anthony Stacchi""
-                                    "Age": "51"
-                                }
-                            </code>
-                            </td>
+                            
         
                     </tr>
                     <tr>
                         <td>Delete user registration</td>
                         <td>/users/:Username</td>
-                        <td>DELETE</td>
+                        <td>Delete</td>
                         <td>None</td>
                         <td>A text message indicating whether a user was successfully removed.</td>
                     </tr>
                 </tbody>
             </table>
+
+            
                                               
  </body>
 </html>

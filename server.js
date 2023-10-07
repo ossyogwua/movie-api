@@ -74,7 +74,7 @@ let topTenMovies = [
     title: "Forgotten Love",
     director: {
       name: "Michal Gazda ",
-      age: 42, death, year:1969
+      age: 42,
     },
     genre: {
       name: "Drama"
@@ -115,81 +115,57 @@ let topTenMovies = [
 ]
 
 // Gets the list of all movies
+app.get('/movies', (req, res) => { res.send('Successful GET request returning data on all the movies');
 
-app.get('/movies', (req, res) => {
-  res.json(topTenMovies);
 });
 
+
 // Return data about a single movie by title 
-app.get('/movies/:Title', { session: false }), (req, res) => {
-  Movies.findOne({Title: req.params.Title})
-    .then((movie) => {
-      res.status(200).json(movie);
-    })
+app.get('/movies/:Title'), (req, res) => { res.send('Successful GET request returning data on the single movie');
+
   
-};
+    };
+
 
 
 // Gets data about a genre by name
-app.get('/movies/genre/:genreName', { session: false }), (req, res) => {
-  Movies.findOne({'Genre.Name':req.params.genreName})
-    .then((movie) => {
-      res.status(200).json(movie.Genre);
-    })
+app.get('/movies/genre/:genreName'), (req, res) => {res.send('Successful GET request returning genre of all the movies');
 
-};
+  
+    };
 
 
-//  Return data about a director (age and death year) by name
-app.get('/movies/directors/:directorName', { session: false }), (req, res) => {
-  Movies.findOne({'Director.Name':req.params.directorName})
-    .then((movie) => {
-      res.status(200).json(movie.Director);
-    })
 
-};
+
+//  Return data about a director (age) by name
+app.get('/movies/directors/:directorName'), (req, res) => {res.send('Successful GET request returning data about all the movie directors');
+
+
+    };
 
 // Adds data for a new users
-app.post('/users', (req, res) => {
-  let users = req.body;
+app.post('/users', (req, res) => {res.send('Successful POST request adding new users');
+
+
 
   }
 );
 
 // Allow users to add a movie to their list of favorites.
-app.post('/favoriteMovies', (req, res) => {
-  let favoriteMovies = req.body;
+app.post('/favoriteMovies', (req, res) => {res.send('Successful POST request allowing users to add their list of favorite movies');
 
-  if (!favoriteMovies.name) {
-    const message = 'Missing name in request body';
-    res.status(400).send(message);
-  } else {
-    favoriteMovies.id = uuid.v4();
-    Movies.push(favoriteMovies);
-    res.status(201).send(favoriteMovies);
-  }
 });
 
 // Deletes an existing user's account.
-app.delete('/users/:account', (req, res) => {
-  let user = user.find((user) => { return user.account === req.params.account });
+app.delete('/users/:account', (req, res) => {res.send('Successful DELETE request deleting users account');
 
-  if (user) {
-    users = users.filter((obj) => { return obj.account !== req.params.account });
-    res.status(201).send('users ' + req.params.account + ' was deleted.');
-  }
+
 });
 
 // Update the user's account
-app.put('/users/:name/:password/:email', (req, res) => {
-  let user = users.find((user) => { return user.name === req.params.name });
+app.put('/users/:name/:password/:email', (req, res) => {res.send('Successful PUT request updating users account');
 
-  if (user) {
-    user.password[req.params.password] = parseInt(req.params.email);
-    res.status(201).send('user ' + req.params.name + ' was assigned a dateOfBirth of ' + req.params.dateOfBirth + ' in ' + req.params.password);
-  } else {
-    res.status(404).send('User with the name ' + req.params.name + ' was not found.');
-  }
+
 });
 
 app.listen(8080, () => {

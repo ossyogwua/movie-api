@@ -1,7 +1,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const fs = require('fs');
-  const bodyParser = require('bodyparser');
+  const bodyParser = require('body-parser');
   const uuid = require('uuid');
 
   const app = express();
@@ -54,7 +54,7 @@ let topTenMovies = [
     title: "Love at First Sight",
     director: {
       name: "Venessa Caswill",
-      age: 36, death, year: 2011
+      age: 36,
     },
     genre: {
       name: "Romance"
@@ -153,15 +153,8 @@ app.get('/movies/directors/:directorName', { session: false }), (req, res) => {
 app.post('/users', (req, res) => {
   let users = req.body;
 
-  if (!users.name) {
-    const message = 'Missing name in request body';
-    res.status(400).send(message);
-  } else {
-    newUser.id = uuid.v4();
-    users.push(newUser);
-    res.status(201).send(newUser);
   }
-});
+);
 
 // Allow users to add a movie to their list of favorites.
 app.post('/favoriteMovies', (req, res) => {

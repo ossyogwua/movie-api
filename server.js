@@ -1,27 +1,35 @@
-const mongoose = require ('mongoose');
-  const models = require ('./models.js');
-const Movies = Models.Movie;
-const Users = Models.User;
-const Genres = Models.Genre;
-const Directors = Models.Director;
 const express = require('express');
 const morgan = require('morgan');
 const fs = require('fs');
+const path = require('path');
   const bodyParser = require('body-parser');
   const uuid = require('uuid');
   
+  const mongoose = require('mongoose');
+  const models = require('./models.js');
+const Movies = models.Movie;
+const Users = models.User;
+const Genres = models.Genre;
+const Directors = models.Director;
 
-  const app = express();
-  app.use(express.json());
-  app.use(express.urlencoded({ extended: true}));
-app.use(bodyParser.json());
-app.use(morgan('common'));
-  
-  app.use(bodyParser.json())
-
-  mongoose.connect('mongodb://localhost:27017/ocDB', { useNewUrlParser: 
+mongoose.connect('mongodb://localhost:27017/ocDB', { useNewUrlParser: 
 true, useUnifiedTopology: true });
 
+  const app = express();
+
+  app.use(express.json());
+  app.use(express.urlencoded({ extended: true }));
+
+ 
+//const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), { flags: 'a' });
+//app.use(morgan('combined', { stream: accessLogStream }));
+
+//app.use(express.static('public'));
+
+
+app.get('/', (req,res) => {
+  res.send('successful response.');
+});
 
 app.get('/genres', (req, res) => {
 Movies.find({ 'Genre.Name':'Thriller' })
@@ -94,6 +102,8 @@ app.post('/users', async (req, res) => {
       res.status(500).send('Error: ' + error);
     });
 });
+
+app.use(express.static('public'));
 
 // Get all users
 app.get('/users', async (req, res) => {
@@ -183,18 +193,32 @@ app.delete('/users/:Username', async (req, res) => {
 
 // Deletes movies from users favorites
 app.delete('/users/:Username/movies/:MovieID', async (req, res) => {
-  $pull: { FavoriteMovies: req.params.MovieID }
+  Users.findOneAndUpdate(
+  { Username: req.params. Username},
+  {
+    $pull: { FavoriteMovies: req.params.MovieID },
    },
    { new: true }) 
 
   .then((updatedUser) => {
+    if (!updatedUser) {
+      return res.status(404).send('Error: User not found');
+    } else {
     res.json(updatedUser);
+  }
   })
   .catch((err) => {
     console.error(err);
     res.status(500).send('Error: ' + err);
   });
 
-  app.listen(8080, () => {
+}); 
+
+  app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send('Something brokeS!');
+  });
+
+  app.listen(8080, (req, res) => {
     console.log('Your app is listening on port 8080.');
   });

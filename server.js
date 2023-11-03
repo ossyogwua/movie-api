@@ -20,19 +20,26 @@ const app = express();
 
 const { check, validationResult } = require("express-validator");
 
-const mongoDBConnectionString = "mongodb://127.0.0.1:27017/ocDB";
-mongoose
-  .connect(mongoDBConnectionString, {
+//const mongoDBConnectionString = "mongodb://127.0.0.1:27017/ocDB";
+//mongoose
+//.connect(mongoDBConnectionString, {
+// useNewUrlParser: true,
+//useUnifiedTopology: true,
+//})
+
+const mongoDBConnectionString =
+  ("mongodb+srv://ossyoguike:<Zaradestiny4>@cluster0.nsap4mj.mongodb.net/ocDB?retryWrites=true&w=majority",
+  {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-  })
-  .then(() => {
-    console.log(`CONNECTED TO MONGO!`);
-  })
-  .catch((err) => {
-    console.log(`OH NO! MONGO CONNECTION ERROR!`);
-    console.log(err);
   });
+//.then(() => {
+//console.log(`CONNECTED TO MONGO!`);
+//})
+//.catch((err) => {
+//onsole.log(`OH NO! MONGO CONNECTION ERROR!`);
+//console.log(err);
+// });
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

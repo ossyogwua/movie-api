@@ -28,7 +28,7 @@ const { check, validationResult } = require("express-validator");
 //})
 
 const mongoDBConnectionString =
-  ("mongodb+srv://ossyoguike:<Zaradestiny4>@cluster0.nsap4mj.mongodb.net/ocDB?retryWrites=true&w=majority",
+  ("mongodb+srv://ossyoguike:<000>@cluster0.nsap4mj.mongodb.net/ocDB?retryWrites=true&w=majority",
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,

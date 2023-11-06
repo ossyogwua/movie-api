@@ -207,7 +207,7 @@ app.post(
   }
 );
 
-app.use(express.static("public"));
+//app.use(express.static("public"));
 
 // Get all users
 app.get(

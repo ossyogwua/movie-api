@@ -27,18 +27,20 @@ const { check, validationResult } = require("express-validator");
 //useUnifiedTopology: true,
 //})
 
-mongoose.connect(process.env.CONNECTION_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+const mongoDBConnectionString = "process.env.CONNECTION_URI";
+mongoose
+  .connect(process.env.CONNECTION_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
 
-//.then(() => {
-//console.log(`CONNECTED TO MONGO!`);
-//})
-//.catch((err) => {
-//console.log(`OH NO! MONGO CONNECTION ERROR!`);
-// console.log(err);
-//});
+  .then(() => {
+    console.log(`CONNECTED TO MONGO!`);
+  })
+  .catch((err) => {
+    console.log(`OH NO! MONGO CONNECTION ERROR!`);
+    console.log(err);
+  });
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -50,10 +52,12 @@ const passport = require("passport");
 require("./passport");
 const { error } = require("console");
 
-//const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), { flags: 'a' });
-//app.use(morgan('combined', { stream: accessLogStream }));
+const accessLogStream = fs.createWriteStream(path.join(__dirname, "log.txt"), {
+  flags: "a",
+});
+app.use(morgan("combined", { stream: accessLogStream }));
 
-//app.use(express.static('public'));
+app.use(express.static("public"));
 
 let allowedOrigins = [
   "http://localhost:8080",

@@ -28,19 +28,18 @@ const { check, validationResult } = require("express-validator");
 //})
 
 const mongoDBConnectionString = "process.env.CONNECTION_URI";
-mongoose
-  .connect(process.env.CONNECTION_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+mongoose.connect(process.env.CONNECTION_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
-  .then(() => {
-    console.log(`CONNECTED TO MONGO!`);
-  })
-  .catch((err) => {
-    console.log(`OH NO! MONGO CONNECTION ERROR!`);
-    console.log(err);
-  });
+//.then(() => {
+//  console.log(`CONNECTED TO MONGO!`);
+// })
+//.catch((err) => {
+// console.log(`OH NO! MONGO CONNECTION ERROR!`);
+//console.log(err);
+//});
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

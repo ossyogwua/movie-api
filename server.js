@@ -23,8 +23,8 @@ const { check, validationResult } = require("express-validator");
 //const mongoDBConnectionString = "mongodb://127.0.0.1:27017/ocDB";
 //mongoose
 //.connect(mongoDBConnectionString, {
-// useNewUrlParser: true,
-//useUnifiedTopology: true,
+//useNewUrlParser: true,
+// useUnifiedTopology: true,
 //})
 
 const mongoDBConnectionString = "process.env.CONNECTION_URI";
@@ -168,8 +168,8 @@ app.post(
       "Username",
       "Username contains non alphanumeric characters - not allowed."
     ).isAlphanumeric(),
-    check("password", "password is required").not().isEmpty(),
-    check("email", "email does not appear to be valid").isEmail(),
+    check("Password", "password is required").not().isEmpty(),
+    check("Email", "email does not appear to be valid").isEmail(),
   ],
 
   async (request, response) => {

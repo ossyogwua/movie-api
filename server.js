@@ -167,11 +167,8 @@ app.post(
     check(
       "Username",
       "Username contains non alphanumeric characters - not allowed."
-    )
-      //isAlphanumeric(),
-      .check("password", "password is required")
-      .not()
-      .isEmpty(),
+    ).isAlphanumeric(),
+    check("password", "password is required").not().isEmpty(),
     check("email", "email does not appear to be valid").isEmail(),
   ],
 

@@ -14,20 +14,16 @@ const Directors = models.Director;
 
 const cors = require("cors");
 
-const bcrypt = require("bcrypt");
-
 const app = express();
 
 const { check, validationResult } = require("express-validator");
 
-//const mongoDBConnectionString = "mongodb://127.0.0.1:27017/ocDB";
-//mongoose
-//.connect(mongoDBConnectionString, {
-//useNewUrlParser: true,
-// useUnifiedTopology: true,
-//})
+// const mongoDBConnectionString = "mongodb://127.0.0.1:27017/ocDB";
+// mongoose.connect(mongoDBConnectionString, {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+// });
 
-const mongoDBConnectionString = "process.env.CONNECTION_URI";
 mongoose
   .connect(process.env.CONNECTION_URI, {
     useNewUrlParser: true,
@@ -95,7 +91,7 @@ app.get(
       })
       .catch((err) => {
         console.log(err);
-        response.status(500).send("Error: " + error);
+        res.status(500).send("Error: " + error);
       });
   }
 );
@@ -129,7 +125,7 @@ app.get(
       })
       .catch((err) => {
         console.log(err);
-        response.status(500).send("Error: " + error);
+        res.status(500).send("Error: " + error);
       });
   }
 );
@@ -145,7 +141,7 @@ app.get(
       })
       .catch((err) => {
         console.log(err);
-        response.status(500).send("Error: " + error);
+        res.status(500).send("Error: " + error);
       });
   }
 );
@@ -172,12 +168,12 @@ app.post(
     check("Email", "email does not appear to be valid").isEmail(),
   ],
 
-  async (request, response) => {
+  async (req, res) => {
     //check validation object for errors
-    let errors = validationResult(request);
+    let errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-      return response.status(422).json({ errors: errors.array() });
+      return res.status(422).json({ errors: errors.array() });
     }
 
     let hashedPassword = Users.hashPassword(req.body.Password);
@@ -264,14 +260,14 @@ app.put(
       "Username",
       "Username contains non alphanumeric characters - not allowed"
     ).isAlphanumeric(),
-    check("password", "password is required").not().isEmpty(),
-    check("email", "email does not appear to be valid").isEmail(),
+    check("Password", "password is required").not().isEmpty(),
+    check("Email", "email does not appear to be valid").isEmail(),
   ],
   async (req, res) => {
     //check validation object for errors
-    let errors = validationResult(request);
+    let errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return response.status(422).json({ errors: errors.array() });
+      return res.status(422).json({ errors: errors.array() });
     }
     let hashedPassword = Users.hashPassword(req.body.Password);
 
@@ -328,6 +324,7 @@ app.post(
   "/users/:Username/movies/:MovieID",
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
+    console.log("Movie ID is here ->", req.params.MovieID);
     await Users.findOneAndUpdate(
       { Username: req.params.Username },
       {

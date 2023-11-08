@@ -24,9 +24,8 @@ const { check, validationResult } = require("express-validator");
 //   useUnifiedTopology: true,
 // });
 
-const mongoDBConnectionString = "process.env.CONNECTION_URI";
 mongoose
-  .connect(mongoDBConnectionString, {
+  .connect(process.env.CONNECTION_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })

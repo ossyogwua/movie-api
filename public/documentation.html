@@ -27,6 +27,14 @@
 
                     </td>
 
+                    <td>Allow new users to login</td>
+                    <td>/users</td>
+                    <td>POST / CREATE</td>
+                    <td>None</td>
+                    <td> 
+
+                    </td>
+
                         <tr>
                             <td>Add a movie to user favorite list</td>
                             <td>/users/:Username/movies/:movieID</td>
@@ -38,19 +46,14 @@
 
                             </tr>
 
-                            
-
-
-                            
-                        
-                   
-                        <tr>
+                                <tr>
                             <td>Get a list of ALL movies</td>
                             <td>/movies</td>
                             <td>GET</td>
                             <td>none</td>
                             <td>A JSON object holding an array with all movies.</td>
                         </tr>
+
                         <tr>
                             <td>Get data about a single movie by title</td>
                             <td>/movies/:Title</td>
@@ -73,6 +76,20 @@
                             </code>
                             </td>
                         </tr>
+
+                        
+
+                        <tr>
+
+                        <td>Get data about a director by name</td>
+                       <td>/directors/[director]</td>
+                       <td>GET</td>
+                       <td>directors, director name</td>
+                        <td>None</td>
+                      <td>A JSON object holding data about the genre, containing a bio, birth year, and death year</td>
+                       </tr>
+
+
                         <tr>
                             <td>Get data about a genre by genre's name</td>
                             <td>/movies/genre/:genreName</td>
@@ -87,14 +104,23 @@
                             </code>
                             </td>
                         </tr>
+                        
                         <tr>
                             <td>Upate user account</td>
                             <td>/users/:username</td>
                             <td>Put</td>
                             <td>none</td>
+
+                            <td>Allow users to remove a movie from their list of favorites</td>
+                            <td>/users/[username]/favorites/[movie_to_delete]</td>
+                            <td>DELETE</td>
+                            <td>users, username, favorites, movie to be deleted</td>
+                            <td>A JSON object holding data about the user, containing a the movie they want to remove from their favorites list</td>
+                            <td>A text message indicating the movie was removed from their favorites list successfully</td>
+                     </tr>
                             
         
-                    </tr>
+                    
                     <tr>
                         <td>Delete user registration</td>
                         <td>/users/:Username</td>

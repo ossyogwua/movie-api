@@ -11,30 +11,54 @@
         personal information, and create a list of their favorite movies.
         </p>
     
+        <h1>How To Use This API</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Business Logic</th>
+                    <th>URL</th>
+                    <th>HTTP Method</th>
+                    <th>Query Parameters</th>
+                    <th>Request Body Data Format</th>
+                    <th>Response Body Data Format</th>
+                </tr>
+            </thead>
     
-    <table>
     
 
                  
         
     <tbody>
-                
-                    <td>Allow new users to register</td>
+
+                    <td>Allow new users to login/ register</td>
+                    <td>creates a JWT token</td>
                     <td>/users</td>
                     <td>POST / CREATE</td>
                     <td>None</td>
-                    <td> 
-
+                    <td>
+                        {
+                            "Username": "test001",
+                            "Password": "password",
+                            "Email": "test001@test.com",
+                            "Birthday": "20-02-2000"
+                            
+                        }
+                        *When you logs in, you get a JWT token and all fields must be field out. </td>
+				<td>A JSON object of a new user added plus an ID number and empty array to store users favorite movies
                     </td>
-
-                    <td>Allow new users to login</td>
-                    <td>/users</td>
-                    <td>POST / CREATE</td>
-                    <td>None</td>
-                    <td> 
-
+                    <td>
+                        {
+                            "Username": "test001",
+                            "Password": "password",
+                            "Email": "test001@test.com",
+                            "Birthday": "20-02-2000",
+                            "FavoriteMovies": [],
+                            
+                        }
                     </td>
-
+        
+                     <td>
+                    </td>
                         <tr>
                             <td>Add a movie to user favorite list</td>
                             <td>/users/:Username/movies/:movieID</td>
@@ -104,7 +128,7 @@
                             </code>
                             </td>
                         </tr>
-                        
+
                         <tr>
                             <td>Upate user account</td>
                             <td>/users/:username</td>

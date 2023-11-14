@@ -10,4 +10,4 @@ Database cloud on [MongoDB Atlas] (https://cloud.mongodb.com/v2/6542c4a02c55ac66
 Live Demo
 Check out the app [here] (https://myflix-922o.onrender.com)
 
-Documentation [here] (https://github.com/)
+Documentation [here] (https://github.com/ossyogwua/movie-api/blob/main/public/documentation.html)

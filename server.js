@@ -1,4 +1,4 @@
-import "dotenv/config";
+const dotenvconfig = require("dotenv").config();
 const express = require("express");
 const morgan = require("morgan");
 const fs = require("fs");
@@ -47,6 +47,7 @@ let auth = require("./auth")(app);
 const passport = require("passport");
 require("./passport");
 const { error } = require("console");
+const { constants } = require("fs/promises");
 
 const accessLogStream = fs.createWriteStream(path.join(__dirname, "log.txt"), {
   flags: "a",

@@ -59,6 +59,7 @@ let allowedOrigins = [
   "http://testsite.com",
   "http://localhost:1234",
   "https://myflix-922o.onrender.com",
+  "https://radiant-sorbet-24d69d.netlify.app",
 ];
 
 // app.use(

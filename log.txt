@@ -15,3 +15,5 @@
 127.0.0.1 - - [08/Nov/2023:10:56:41 +0000] "POST /users/ren001/movies/652c581bd40b1309176b0d16 HTTP/1.1" 200 228 "-" "PostmanRuntime/7.34.0"
 127.0.0.1 - - [08/Nov/2023:11:00:37 +0000] "POST /users/ren001/movies/652c581bd40b1309176b0d16 HTTP/1.1" 200 235 "-" "PostmanRuntime/7.34.0"
 127.0.0.1 - - [08/Nov/2023:11:01:12 +0000] "DELETE /users/ren001/movies/652c581bd40b1309176b0d16 HTTP/1.1" 200 182 "-" "PostmanRuntime/7.34.0"
+127.0.0.1 - - [03/Dec/2023:10:58:19 +0000] "GET / HTTP/1.1" 200 18 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36"
+127.0.0.1 - - [03/Dec/2023:10:58:19 +0000] "GET /favicon.ico HTTP/1.1" 404 150 "http://localhost:8080/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36"
